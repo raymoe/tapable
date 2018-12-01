@@ -92,7 +92,29 @@ describe("applyPluginsParallel",function () {
 			setTimeout(()=>{
 				console.log('3',a,b);
 				cb();
-			},500)
+			},600)
+		});
+
+		tapable.applyPluginsParallelBailResult("emit2",'aaaa','bbbbb',function(a,b){
+			console.log('end',a,b)
+		});
+	});
+
+	it("applyPluginsParallelBailResult2",function () {
+		tapable.plugin("emit2",function(a,b,cb){
+			console.log('1',a,b);
+			cb();
+		});
+
+		tapable.plugin("emit2",function(a,b,cb){
+			console.log('2',a,b);
+			cb();
+			return 2;
+		});
+
+		tapable.plugin("emit2",function(a,b,cb){
+			console.log('3',a,b);
+			cb();
 		});
 
 		tapable.applyPluginsParallelBailResult("emit2",'aaaa','bbbbb',function(a,b){
